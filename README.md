@@ -1,171 +1,196 @@
-# Team Task Manager
+# 🚀 Team Task Manager — Full Stack Production App
 
-## Table of Contents
-1. [Project Overview](#project-overview)
-2. [Tech Stack](#tech-stack)
-3. [Features](#features)
-4. [Architecture Diagram](#architecture-diagram)
-5. [Repository Structure](#repository-structure)
-6. [Setup & Installation](#setup--installation)
-7. [Running the Application](#running-the-application)
-8. [Environment Variables](#environment-variables)
-9. [API Documentation](#api-documentation)
-10. [Testing](#testing)
-11. [Deployment](#deployment)
-12. [Contributing](#contributing)
-13. [License](#license)
+> A scalable, production-ready **Team & Task Management System** built using React, Node.js, and MongoDB with a modern monorepo architecture.
 
 ---
 
-## Project Overview
-**Team Task Manager** is a full‑stack monorepo that provides a modern task‑management solution for teams. It consists of:
+## 🌟 Key Highlights (Recruiter Focus)
 
-* **Frontend** – a React application built with Vite, offering a responsive UI and client‑side routing.
-* **Backend** – an Express server written in TypeScript, exposing a RESTful API and handling authentication, authorization, and data persistence.
-* **Shared Libraries** – reusable TypeScript utilities, API client, Zod schemas, and database models located under the `lib/` folder.
-
-The repository is configured as an npm workspace, allowing each package (`frontend`, `backend`, `lib/*`) to be built, linted, and tested independently while sharing a single `node_modules` tree.
-
----
-
-## Tech Stack
-| Layer | Technology |
-|-------|------------|
-| **Frontend** | React 18, TypeScript, Vite, Tailwind CSS, shadcn/ui components |
-| **Backend** | Node.js, Express, TypeScript, Zod (validation), Pino (logging) |
-| **Database** | MongoDB (via Mongoose) |
-| **Auth** | JSON Web Tokens (JWT), bcrypt |
-| **Package Management** | npm (workspace) |
-| **Dev Tools** | concurrently, ts-node, eslint, prettier |
+* 🔐 Secure Authentication (JWT + bcrypt)
+* 👥 Role-Based Access Control (RBAC)
+* 📋 Task & Project Management System
+* ⚡ Monorepo Architecture (Frontend + Backend + Shared Libs)
+* 🧠 Type-Safe API using Zod
+* 🚀 Production-ready backend with logging & security middleware
+* 🐳 Docker support for deployment
 
 ---
 
-## Features
-- **User Authentication** – Secure login with JWT and password hashing (bcrypt).
-- **Role‑Based Access** – Different permissions for regular users and admins.
-- **Project & Task Management** – Create, read, update, delete projects and tasks.
-- **Activity Logging** – Centralised logging using `pino` for easy debugging.
-- **Rate Limiting & Security** – Helmet, CORS, and express‑rate‑limit protect the API.
-- **Shared Types** – Type‑safe API contracts using Zod schemas (`lib/api-zod`).
-- **Monorepo Workspace** – Shared utilities and API client (`lib/api-client-react`).
-- **Docker Ready** – Dockerfile and docker‑compose files are included for containerised development.
+## 🛠️ Tech Stack
+
+| Layer      | Technology                               |
+| ---------- | ---------------------------------------- |
+| Frontend   | React 18, TypeScript, Vite, Tailwind CSS |
+| Backend    | Node.js, Express.js, TypeScript          |
+| Database   | MongoDB (Mongoose)                       |
+| Validation | Zod                                      |
+| Auth       | JWT, bcrypt                              |
+| Logging    | Pino                                     |
+| Dev Tools  | concurrently, tsx, eslint, prettier      |
 
 ---
 
----
+## 🏗️ Architecture
 
-## Repository Structure
-```
-Team-Task-Manager/
-├─ backend/                # Express API
-│   ├─ src/                # Source code
-│   └─ tsconfig.json
-├─ frontend/               # React application
-│   ├─ src/                # React components & pages
-│   └─ vite.config.ts
-├─ lib/                    # Shared libraries
-│   ├─ api-client-react/   # React API client wrapper
-│   ├─ api-spec/           # OpenAPI spec & Orval config
-│   ├─ api-zod/            # Zod schemas for request/response validation
-│   └─ db/                 # Database models & connection logic
-├─ scripts/                # Utility scripts (e.g., CI helpers)
-├─ .env.example            # Example environment file
-├─ package.json            # Workspace root scripts
-└─ README.md               # **You are here**
+```mermaid
+graph LR
+    A[React Frontend] -->|REST API| B[Express Backend]
+    B -->|Mongoose ODM| C[MongoDB]
+    B -->|Auth + Middleware| D[Security Layer]
 ```
 
 ---
 
-## Setup & Installation
-1. **Clone the repository** (already done).
-2. **Install dependencies**
-   ```bash
-   npm install   # Installs all workspace packages
-   ```
-3. **Create an `.env` file** at the repository root (copy from `.env.example`). Required variables:
-   - `PORT` – Port for the backend (default `3000`).
-   - `MONGODB_URI` – Connection string for MongoDB.
-   - `JWT_SECRET` – Secret key for signing JWTs.
-   - `CORS_ORIGIN` – Frontend origin (e.g., `http://localhost:5173`).
-4. **(Optional) Run MongoDB locally** using Docker:
-   ```bash
-   docker run -d -p 27017:27017 --name tm-mongo mongo:latest
-   ```
+## 📂 Project Structure
 
----
-
-## Running the Application
-### Development
 ```bash
+team-manager/
+├── frontend/        # React UI (Vite)
+├── backend/         # Express API (TypeScript)
+├── lib/             # Shared modules (Zod, DB, API client)
+├── scripts/         # Utility scripts
+└── package.json     # Monorepo config
+```
+
+---
+
+## ⚙️ Environment Variables
+
+Create `.env` file:
+
+```env
+PORT=8080
+FRONTEND_PORT=5173
+BACKEND_URL=http://localhost:8080
+JWT_SECRET=your_secret_key
+COOKIE_NAME=ttm_session
+MONGODB_URI=your_mongodb_uri
+NODE_ENV=development
+```
+
+---
+
+## 🚀 Getting Started
+
+```bash
+# Clone repo
+git clone https://github.com/Harsh-Bhardwajj/teamManger.git
+
+# Move into project
+cd teamManger
+
+# Install dependencies
+npm install
+
+# Run project
 npm run dev
 ```
-This command uses `concurrently` to start:
-* **Frontend** – Vite dev server on `http://localhost:5173` (proxying `/api/*` to the backend).
-* **Backend** – `tsx` watches the `backend/src` folder and restarts on changes.
 
-### Production
+---
+
+## 🌍 Local URLs
+
+* Frontend → http://localhost:5173
+* Backend → http://localhost:8080
+
+---
+
+## 🔥 Core Features
+
+### 🔐 Authentication
+
+* JWT-based login/signup
+* Secure password hashing using bcrypt
+
+### 👥 Team Management
+
+* Create & manage teams
+* Assign roles (admin/user)
+
+### 📋 Task Management
+
+* Create, update, delete tasks
+* Assign tasks to users
+* Track progress
+
+### 🛡️ Security
+
+* Helmet (security headers)
+* Rate limiting
+* CORS protection
+
+---
+
+## 📊 Performance & Engineering
+
+* ⚡ Fast build using Vite
+* 🧠 Type-safe backend with TypeScript + Zod
+* 📦 Monorepo architecture for scalability
+* 🔄 Concurrent frontend + backend development
+
+---
+
+## 🧪 Testing
+
 ```bash
-npm run build   # Builds frontend and backend
-npm run start   # Starts the compiled backend which serves the static frontend
-```
-The production server listens on the port defined by `PORT` (or the environment‑provided value on platforms like Railway/Heroku).
-
----
-
-## Environment Variables
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `PORT` | Port for the Express server | `3000` |
-| `MONGODB_URI` | MongoDB connection string | `mongodb://localhost:27017/team-manager` |
-| `JWT_SECRET` | Secret for signing JWT tokens | `supersecretkey` |
-| `CORS_ORIGIN` | Allowed origin for CORS (frontend URL) | `http://localhost:5173` |
-
----
-
-## API Documentation
-The OpenAPI specification lives in `lib/api-spec/openapi.yaml`. You can generate a client with Orval (`npm run generate:client`) or view the spec using Swagger UI locally:
-```bash
-npm run dev   # Then navigate to http://localhost:5173/api-docs (if configured)
+npm run test
+npm run test:watch
 ```
 
----
-
-## Testing
-Unit and integration tests are written with **Jest** and **Supertest**.
-```bash
-npm run test          # Run all tests
-npm run test:watch   # Watch mode during development
-```
-Coverage reports are generated in the `coverage/` directory.
+* Unit & integration testing using Jest & Supertest
 
 ---
 
-## Deployment
-### Railway (or Heroku)
-1. Connect the GitHub repository to Railway.
-2. Add the required environment variables in the Railway dashboard.
-3. Railway will automatically run `npm run start` as defined in the `Procfile`:
-   ```
-   web: npm run start
-   ```
+## 🚀 Deployment
+
 ### Docker
-A `Dockerfile` is provided at the repository root. Build and run with:
+
 ```bash
-docker build -t team-task-manager .
-docker run -p 3000:3000 -e MONGODB_URI=... -e JWT_SECRET=... team-task-manager
+docker build -t team-manager .
+docker run -p 8080:8080 team-manager
 ```
 
----
+### Cloud (Recommended)
 
-## Contributing
-Contributions are welcome! Please follow these steps:
-1. Fork the repository.
-2. Create a feature branch (`git checkout -b feature/awesome-feature`).
-3. Make your changes, ensuring linting passes (`npm run lint`).
-4. Write or update tests.
-5. Submit a pull request with a clear description of the changes.
+* Render / Railway → Backend
+* Vercel → Frontend
 
 ---
 
-## License
-This project is licensed under the **MIT License** – see the `LICENSE` file for details.
+## 📈 Future Enhancements
+
+* 🔔 Real-time notifications (WebSockets)
+* 📊 Analytics dashboard
+* 📱 Mobile responsive UI
+* 🔑 OAuth login (Google/GitHub)
+
+---
+
+## 💼 Resume Value (IMPORTANT)
+
+This project demonstrates:
+
+* Full-stack development (MERN-style architecture)
+* Clean code architecture & scalability
+* API design & authentication systems
+* Real-world problem solving
+* Production-level practices (security, logging, validation)
+
+---
+
+## 👨‍💻 Author
+
+**Harsh Bhardwaj**
+🔗 https://github.com/Harsh-Bhardwajj
+
+---
+
+## ⭐ Support
+
+If you like this project, give it a ⭐ on GitHub!
+
+---
+
+## 📌 Tip for Recruiters
+
+> This project is built with a focus on scalability, maintainability, and real-world backend practices, making it suitable for production-level applications.
